@@ -1,0 +1,28 @@
+.add_card {
+  margin: 1rem;
+  padding: 2rem;
+  width: 300px;
+  height: 200px;
+  font-size: 5rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  text-align: center;
+  text-decoration: none;
+  color: #1E8449;
+  border: 1px dashed #1E8449;
+  border-radius: 10px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #E8F6F3;
+    background-color: #148F77;
+    border: 1px solid #1E8449;
+  }
+}
+
+.add_card__title {
+  font-size: 1.2rem;
+}
