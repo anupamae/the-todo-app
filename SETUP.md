@@ -11,4 +11,4 @@
     npm i --save-dev @types/uuid
     npm i mongodb
     npm i @reach/dialog
-    
+    npm i @mui/material @emotion/react @emotion/styled @mui/icons-material

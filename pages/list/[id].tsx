@@ -1,14 +1,18 @@
 import { NextPage } from 'next'
-import { useRouter } from 'next/router'
 
-import styles from '../../styles/TodoList.module.scss'
+import { useRouter } from 'next/router'
+import PageTemplate from '../../Components/PageTemplate'
+
+import styles from '../../styles/Home.module.scss'
 
 const TodoList: NextPage = () => {
   const router = useRouter()
   const { id } = router.query
 
   return (
-    <p>List: {id}</p>
+    <PageTemplate>
+      <p>List: {id}</p>
+    </PageTemplate>
   )
 }
 

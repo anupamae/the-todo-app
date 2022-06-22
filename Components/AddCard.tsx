@@ -11,7 +11,7 @@ const AddCard = (props: IAddCardProps) => {
   return (
     <article className={styles.add_card} onClick={props.onClick}>
       <FontAwesomeIcon icon={faAdd} />
-      <p className={styles.add_card__title}>Add List</p>
+      <p className={styles.add_card__p}>Add List</p>
     </article>
   )
 }
