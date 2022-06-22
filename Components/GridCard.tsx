@@ -1,16 +1,18 @@
 import styles from './GridCard.module.scss'
 
 import { truncateString } from '../State/Utils'
+import { ITodoList } from '../State/State'
 
-interface GridCardProps {
-  id: string,
-  title: string
+interface IGridCardProps {
+  todoList: ITodoList
 }
 
-const GridCard = (props: GridCardProps) => {
+const GridCard = ({ todoList }: IGridCardProps) => {
   return (
-    <a href={"/list/" + props.id} className={styles.card}>
-      <h2>{truncateString(props.title, 10)} &rarr;</h2>
+    <a href={"/list/" + todoList.id} className={styles.card}>
+      <h2>{truncateString(todoList.name, 15)} &rarr;</h2>
+      <p>ToDo: {todoList.list.filter(it => !it.completed).reduce(sum => sum++, 0)}</p>
+      <p>Done: {todoList.list.filter(it => it.completed).reduce(sum => sum++, 0)}</p>
     </a>
   )
 }

@@ -1,4 +1,4 @@
-import { ITodoItem, ITodoList, ITodoStateData } from "./State";
+import { ITodoItem, ITodoList, ITodoStateData } from "./State"
 
 export const apiReadAllList = async (): Promise<ITodoStateData> => {
     // TODO:

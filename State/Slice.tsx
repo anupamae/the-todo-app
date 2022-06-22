@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from 'uuid';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { v4 as uuidv4 } from 'uuid'
 
-import initialState from "./State";
-import { readAllListThunk, readOneItemThunk, readOneListThunk } from "./Thunks";
+import initialState from './State'
+import { readAllListThunk, readOneItemThunk, readOneListThunk } from './Thunks'
 
 const todoSlice = createSlice({
   name: 'todo',
@@ -45,43 +45,43 @@ const todoSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(readAllListThunk.pending, (state) => {
-      state.status = 'loading'
-    })
-    .addCase(readAllListThunk.fulfilled, (state, action) => {
-      state.status = 'idle'
-      state.data = action.payload
-    })
-    .addCase(readOneListThunk.pending, (state) => {
-      state.status = 'loading'
-    })
-    .addCase(readOneListThunk.fulfilled, (state, action) => {
-      state.status = 'idle'
-      const item = action.payload
-      if(item) {
-        state.data[item.id] = item
-      }
-    })
-    .addCase(readOneItemThunk.pending, (state) => {
-      state.status = 'loading'
-    })
-    .addCase(readOneItemThunk.fulfilled, (state, action) => {
-      state.status = 'idle'
-      const item = action.payload
-      if(item) {
-        const index = state.data[item.listId].list.findIndex(it => it.id === item.id)
-        state.data[item.listId].list[index] = item
-      }
-    })
+      .addCase(readAllListThunk.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(readAllListThunk.fulfilled, (state, action) => {
+        state.status = 'idle'
+        state.data = action.payload
+      })
+      .addCase(readOneListThunk.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(readOneListThunk.fulfilled, (state, action) => {
+        state.status = 'idle'
+        const item = action.payload
+        if (item) {
+          state.data[item.id] = item
+        }
+      })
+      .addCase(readOneItemThunk.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(readOneItemThunk.fulfilled, (state, action) => {
+        state.status = 'idle'
+        const item = action.payload
+        if (item) {
+          const index = state.data[item.listId].list.findIndex(it => it.id === item.id);
+          state.data[item.listId].list[index] = item
+        }
+      })
   },
 })
 
-export const { 
-  createTodoListAction, 
-  deleteTodoListAction, 
-  insertTodoItemAction, 
-  removeTodoItemAction, 
-  toggleTodoDoneAction 
-} = todoSlice.actions
+export const {
+  createTodoListAction,
+  deleteTodoListAction,
+  insertTodoItemAction,
+  removeTodoItemAction,
+  toggleTodoDoneAction
+} = todoSlice.actions;
 
 export default todoSlice

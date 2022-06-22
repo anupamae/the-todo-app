@@ -1,5 +1,9 @@
+import { useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
+
+import { Dialog } from '@reach/dialog'
+import '@reach/dialog/styles.css'
 
 import styles from '../styles/Home.module.scss'
 
@@ -8,8 +12,27 @@ import GridCard from '../Components/GridCard'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faListCheck } from '@fortawesome/free-solid-svg-icons'
+import { useAppDispatch, useAppSelector } from '../State/Hooks'
+import { createTodoListAction } from '../State/Slice'
 
 const Home: NextPage = () => {
+
+  const dispatch = useAppDispatch()
+
+  const todoMap = useAppSelector(state => state.data)
+
+  const [showDialog, setShowDialog] = useState(false)
+  const openDialog = () => setShowDialog(true)
+  const closeDialog = () => setShowDialog(false)
+
+  const [listName, setListName] = useState('')
+
+  const addList = () => {
+    dispatch(createTodoListAction(listName));
+    setListName('');
+    closeDialog();
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -23,12 +46,16 @@ const Home: NextPage = () => {
       </h1>
       <main className={styles.main}>
         <section className={styles.grid}>
-          <AddCard />
-          <GridCard id="1" title="First" />
-          <GridCard id="2" title="Second" />
-          <GridCard id="3" title="Third" />
-          <GridCard id="4" title="Fourth" />
+          <AddCard onClick={openDialog} />
+          {Object.values(todoMap).map(it => (
+            <GridCard key={it.id} todoList={it} />
+          ))}
         </section>
+        <Dialog isOpen={showDialog} aria-label="Add Dialog">
+          <input value={listName} onChange={e => setListName(e.target.value)} />
+          <button onClick={closeDialog}>Cancel</button>
+          <button onClick={addList}>Add</button>
+        </Dialog>
       </main>
 
       <footer className={styles.footer}>

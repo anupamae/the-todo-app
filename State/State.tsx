@@ -12,7 +12,7 @@ export interface ITodoList {
 }
 
 export interface ITodoStateData {
-  [listId: string]: ITodoList
+  [key: string]: ITodoList
 }
 
 export interface ITodoState {
@@ -39,7 +39,7 @@ export const saveStateData = (data: ITodoStateData) => {
 
 const initialState: ITodoState = {
   status: 'idle',
-  data: {}
+  data: loadStateData()
 }
 
 export default initialState
