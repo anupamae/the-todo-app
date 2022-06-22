@@ -1,5 +1,6 @@
 export interface ITodoItem {
   id: string,
+  listId: string,
   title: string,
   completed: boolean
 }
@@ -10,23 +11,35 @@ export interface ITodoList {
   list: ITodoItem[]
 }
 
-export interface ITodoState {
+export interface ITodoStateData {
   [listId: string]: ITodoList
+}
+
+export interface ITodoState {
+  status: 'idle' | 'loading' | 'failed',
+  data: ITodoStateData
 }
 
 const localStorageKey = 'todoList';
 
-export const loadState = (): ITodoState => {
+export const loadStateData = (): ITodoStateData => {
   try {
-    const todoState = JSON.parse(localStorage.getItem(localStorageKey) || '') as ITodoState
-    if (todoState) {
-      return todoState
+    const data = JSON.parse(localStorage.getItem(localStorageKey) || '') as ITodoStateData;
+    if (data) {
+      return data;
     }
   } catch (_) {
   }
-  return {};
+  return {}
 }
 
-export const saveState = (todoState: ITodoState) => {
-  localStorage.setItem(localStorageKey, JSON.stringify(todoState));
+export const saveStateData = (data: ITodoStateData) => {
+  localStorage.setItem(localStorageKey, JSON.stringify(data));
 }
+
+const initialState: ITodoState = {
+  status: 'idle',
+  data: {}
+}
+
+export default initialState

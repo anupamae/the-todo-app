@@ -8,3 +8,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     npm i @reduxjs/toolkit
     npm i --save-dev @types/react-redux
     npm i react-beautiful-dnd
+    npm i uuid
+    npm i --save-dev @types/uuid
+    

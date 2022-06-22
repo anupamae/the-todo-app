@@ -1,13 +1,19 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { todoReducer } from './Reducer'
-import { saveState } from './State'
+import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 
-export const store = configureStore({ reducer: todoReducer })
+import { saveStateData } from './State'
+
+import todoSlice from './Slice'
+
+const store = configureStore({ reducer: todoSlice.reducer })
 
 store.subscribe(() => {
-  saveState(store.getState())
+  saveStateData(store.getState().data);
 })
 
 export type RootState = ReturnType<typeof store.getState>
+
 export type AppDispatch = typeof store.dispatch
 
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>
+
+export default store
