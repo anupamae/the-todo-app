@@ -27,24 +27,29 @@ import { useAppSelector, useAppDispatch } from '../../State/Hooks';
 import { insertTodoItemAction, removeTodoItemAction, toggleTodoDoneAction } from '../../State/Slice';
 
 const TodoList: NextPage = () => {
-  const router = useRouter()
-  const { id } = router.query
-  const listId = typeof id === 'string' ? id : ''
-  if (listId === '') {
-    return (<h1>404 - Page Not Found</h1>)
-  }
-
   const dispatch = useAppDispatch();
 
+  const todoMap = useAppSelector(state => state.data);
+
+  const router = useRouter();
+
+  const [showDialog, setShowDialog] = useState(false);
+  const [todoTitle, setTodoTitle] = useState('');
+
+  const { id } = router.query;
+  const listId = typeof id === 'string' ? id : '';
+  if (listId === '') {
+    return (<h1>404 - Page Not Found</h1>);
+  }
+  const todoList = todoMap[listId];
+
   const handleToggle = (itemId: string) => () => {
-    dispatch(toggleTodoDoneAction([listId, itemId]))
+    dispatch(toggleTodoDoneAction([listId, itemId]));
   }
 
   const handleDelete = (itemId: string) => () => {
-    dispatch(removeTodoItemAction([listId, itemId]))
+    dispatch(removeTodoItemAction([listId, itemId]));
   }
-
-  const todoList = useAppSelector(state => state.data[listId]);
 
   const fabGreenStyle = {
     color: 'common.white',
@@ -53,9 +58,6 @@ const TodoList: NextPage = () => {
       bgcolor: '#45B39D',
     },
   }
-
-  const [showDialog, setShowDialog] = useState(false);
-  const [todoTitle, setTodoTitle] = useState('');
 
   const handleDialogAddClick = () => {
     dispatch(insertTodoItemAction([listId, todoTitle]));

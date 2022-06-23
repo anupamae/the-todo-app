@@ -21,7 +21,7 @@ const PageTemplate = (props: {children?: React.ReactNode}) => {
           <Icon sx={{ fontSize: 50, paddingRight: 4 }}>receipt_long</Icon> Yet another TODO app
         </header>
 
-        <Container maxWidth="xl" component="main">
+        <Container maxWidth="xl" component="section">
           <section className={styles.container}>
             {props.children}
           </section>
