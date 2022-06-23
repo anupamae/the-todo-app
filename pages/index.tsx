@@ -1,7 +1,7 @@
+import styles from './Index.module.scss';
+
 import { useState } from 'react';
 import type { NextPage } from 'next';
-
-import styles from '../styles/Home.module.scss';
 
 import AddCard from '../Components/AddCard';
 import GridCard from '../Components/GridCard';
@@ -10,18 +10,15 @@ import { useAppDispatch, useAppSelector } from '../State/Hooks';
 import { createTodoListAction } from '../State/Slice';
 
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField,
-  DialogActions,
   Button,
-  Grid
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Grid,
+  TextField
 } from '@mui/material';
 
-import PageTemplate from '../Components/PageTemplate';
-
-const Home: NextPage = () => {
+const Index: NextPage = () => {
 
   const dispatch = useAppDispatch();
 
@@ -35,21 +32,20 @@ const Home: NextPage = () => {
     setListName('');
     setShowDialog(false);
   }
+
   const handleDialogClose = () => {
     setListName('');
     setShowDialog(false);
   }
 
   return (
-    <PageTemplate>
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <AddCard onClick={() => setShowDialog(true)} />
-        {Object.values(todoMap).map(it => (
-          <GridCard key={it.id} todoList={it} />
-        ))}
-      </Grid>
+    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <AddCard onClick={() => setShowDialog(true)} />
+      {Object.values(todoMap).map(it => (
+        <GridCard key={it.id} todoList={it} />
+      ))}
+
       <Dialog open={showDialog} fullWidth >
-        <DialogTitle align='center'>Create new list</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -68,8 +64,8 @@ const Home: NextPage = () => {
           <Button onClick={handleDialogAddClick} variant="contained" color="success" disabled={listName.length < 3}>Add</Button>
         </DialogActions>
       </Dialog>
-    </PageTemplate>
+    </Grid>
   )
 }
 
-export default Home
+export default Index
